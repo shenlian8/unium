@@ -1,0 +1,16 @@
+# configuration remote mobile safari.
+
+remote-url: http://127.0.01:4723/wd/hub
+log-filter:
+  -pageinfo
+screenshot-all: build/reports/screenshots
+html-result: build/reports
+define:
+  deviceName=iPhone 11
+  platformName=iOS
+  automationName=XCUITest
+  app=/Users/shenlian/testautomation/apps/Scalable Capital.app
+  locale=EN
+  language=en
+  newCommandTimeout=3600
+baseurl: https://dev-de.scalable.capital/

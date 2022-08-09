@@ -1,0 +1,21 @@
+# configuration remote mobile safari.
+
+driver: qa.scalable.capital.appium.webdriver.AndroidDriverFactory
+command-factory: qa.scalable.capital.appium.appcommand.CommandFactory
+remote-url: http://127.0.0.1:4723/wd/hub
+log-filter:
+  -pageinfo
+screenshot-all: build/reports/screenshots
+html-result: build/reports
+define:
+  deviceName=Pixel_3a_API_30_x86_1
+  platformName=Android
+  automationName=UiAutomator2
+  appPackage=com.electrovese.animationdemo
+  appActivity=.activities.Home
+  locale=EN
+  language=en
+  newCommandTimeout=3600
+  noReset=false
+  fullReset=false
+baseurl: https://dev-de.scalable.capital/
