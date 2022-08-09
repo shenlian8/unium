@@ -15,6 +15,7 @@ import jp.vmi.selenium.selenese.utils.LogRecorder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import unium.seleneserunner.ConfigContainer;
+import unium.seleneserunner.InterceptorBinder;
 import unium.seleneserunner.SeleneseRunnerFactory;
 
 import java.io.File;
