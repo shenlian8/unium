@@ -1,4 +1,4 @@
-package unium.seleneserunner;
+package unium.tester;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
