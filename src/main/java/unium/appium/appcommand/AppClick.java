@@ -12,10 +12,14 @@ import jp.vmi.selenium.selenese.result.Result;
 import jp.vmi.selenium.selenese.result.Success;
 import jp.vmi.selenium.selenese.utils.Wait;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.Arrays;
 
 import static jp.vmi.selenium.selenese.command.ArgumentType.LOCATOR;
@@ -62,26 +66,19 @@ public class AppClick extends AbstractCommand {
             timeoutIsSet = false;
         }
         long startTime = System.currentTimeMillis();
-       
-        Wait.StopCondition condition = () -> {
-            WebElement element = null;
-            try {
-                element = driver.findElement(byLocator);
-            } catch (Exception e) {
-                 //not jet
-            }
-            if (element != null) {
-                element.click();
-            }
-            return element != null;
-        };
-        if (!Wait.defaultInterval.wait(startTime, timeout, condition)) {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(timeout));
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(byLocator));
+            driver.findElement(byLocator).click();
+        } catch (TimeoutException e) {
             if(timeoutIsSet) {
                 return new Success("Failed to find element within " + timeout + " ms");
             } else {
                 return new jp.vmi.selenium.selenese.result.Error("Failed to find element within " + timeout + " ms");
             }
         }
+
         return SUCCESS;
     }
     
