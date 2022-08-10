@@ -41,23 +41,31 @@ public class Tester extends Commander {
     private boolean toSkip = false;
     private TestSuite testSuite = null;
 
-    private Tester(String mobilePlatform, String configFile) {
+    public Tester() {
         super();
+    }
+
+    private void initTester(String mobilePlatform, String configFile) {
         initConfig(mobilePlatform, configFile);
         SeleneseRunnerFactory trf = new SeleneseRunnerFactory();
         this.seleneseRunner = trf.newInstance();
     }
-
     public static Tester createTester(String configFile) {
-        return new Tester("", configFile);
+        Tester tester = InterceptorBinder.newTester();
+        tester.initTester("", configFile);
+        return tester;
     }
 
     public static Tester createIosTester(String configFile) {
-        return new Tester(MobilePlatform.IOS, configFile);
+        Tester tester = InterceptorBinder.newTester();
+        tester.initTester(MobilePlatform.IOS, configFile);
+        return tester;
     }
 
     public static Tester createAndroidTester(String configFile) {
-        return new Tester(MobilePlatform.ANDROID, configFile);
+        Tester tester = InterceptorBinder.newTester();
+        tester.initTester(MobilePlatform.ANDROID, configFile);
+        return tester;
     }
 
     private void initConfig(String mobilePlatform, String configFileName) {
