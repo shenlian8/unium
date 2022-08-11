@@ -16,6 +16,13 @@ public abstract class Commander {
 
     /*==================================================      checkium commands   ==================================================*/
 
+    /**
+     * app2PointsLongPress(locator, value)<br /><br />
+     * * 2 finger long press on an element. <br />
+     * * Example: <b>app2PointsLongPress("element", "20,20,80,80")</b>.<br />
+     * * @param args <br />*locator - an element locator<br />
+     * * value - Coordinates in percent. First point x, first point y, second point x, second point y.
+     */
     public Result app2PointsLongPress(String... args) {
         return execCommand(getMethodName(), args);
     }

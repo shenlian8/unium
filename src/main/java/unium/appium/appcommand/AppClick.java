@@ -65,7 +65,6 @@ public class AppClick extends AbstractCommand {
             timeout = DEFAULT_TIMEOUT; // set to default
             timeoutIsSet = false;
         }
-        long startTime = System.currentTimeMillis();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(timeout));
         try {

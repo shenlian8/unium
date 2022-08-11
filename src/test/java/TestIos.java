@@ -24,8 +24,9 @@ public class TestIos {
     public void testClick() {
         ios11Tester.startTestCase("Click test");
         ios11Tester.appClick("Continue");
-        ios11Tester.appClick("Allow", "1000");
-        ios11Tester.sendKeys("", "");
+        ios11Tester.appClick("Allow");
+        ios11Tester.app2PointsLongPress("Scalable α", "10,10,50,10");
+        ios11Tester.pause("3000");
         ios11Tester.endTestCase();
     }
 
