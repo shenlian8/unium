@@ -42,13 +42,30 @@ public abstract class Commander {
     /**
      * appClick(locator, value)<br /><br />
      * * Tap on the element. <br />
-     * * The value is used to set timeout. <br />
-     * - If the value is not set, wait for 2 seconds as default. When the element is not found after 2 seconds -> error<br />
-     * - if the value is set, wait for so much time. When the element is not found after the set timeout -> success anyhow<br />
-     * This option gives the user the possibility to tap the element, which occurs occasionally.<br />
-     * * @param args <br />*locator - an element locator<br />*value - timeout in milliseconds
+     * * The value is optional to set timeout. <br />
+     * - If the value is not set, wait for 2 seconds as default.<br />
+     * - if the value is set, wait for so much time.<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
+     * * value - timeout in milliseconds
      */
     public Result appClick(String... args) {
+        return execCommand(getMethodName(), args);
+    }
+
+    /**
+     * appClickIfExists(locator, value)<br /><br />
+     * * Tap on the element if the element exists. <br />
+     * *This command returns always success as result.
+     * This command gives the user the possibility to tap the element, which occurs occasionally.<br />
+     * * The value is optional to set timeout. <br />
+     * - If the value is not set, wait for 2 seconds as default.<br />
+     * - if the value is set, wait for so much time.<br />
+     * This option gives the user the possibility to tap the element, which occurs occasionally.<br />
+     * * @param args <br />* locator - an element locator<br />
+     * * value - timeout in milliseconds
+     */
+    public Result appClickIfExists(String... args) {
         return execCommand(getMethodName(), args);
     }
 
