@@ -20,13 +20,19 @@ public abstract class Commander {
      * app2PointsLongPress(locator, value)<br /><br />
      * * 2 finger long press on an element. <br />
      * * Example: <b>app2PointsLongPress("element", "20,20,80,80")</b>.<br />
-     * * @param args <br />*locator - an element locator<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
      * * value - Coordinates in percent. First point x, first point y, second point x, second point y.
      */
     public Result app2PointsLongPress(String... args) {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appAssertElementPresent(locator)<br /><br />
+     * * Assert element present. Return SUCCESS when element found. Return ERROR when element cannot be found.<br />
+     * * @param args <br />*locator - an element locator<br />
+     */
     public Result appAssertElementPresent(String... args) {
         return execCommand(getMethodName(), args);
     }
@@ -62,7 +68,8 @@ public abstract class Commander {
      * - If the value is not set, wait for 2 seconds as default.<br />
      * - if the value is set, wait for so much time.<br />
      * This option gives the user the possibility to tap the element, which occurs occasionally.<br />
-     * * @param args <br />* locator - an element locator<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
      * * value - timeout in milliseconds
      */
     public Result appClickIfExists(String... args) {
