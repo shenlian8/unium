@@ -31,11 +31,11 @@ import java.util.concurrent.TimeUnit;
  *
  * @author lian.shen
  */
-public class AndroidWebDriver extends AndroidDriver implements JavascriptExecutor {
+public class AndroidAppDriver extends AndroidDriver implements JavascriptExecutor {
 
     private static final String NOT_SUPPORTED_YET = "Not supported yet.";
 
-    public AndroidWebDriver(URL remoteAddress, Capabilities desiredCapabilities) {
+    public AndroidAppDriver(URL remoteAddress, Capabilities desiredCapabilities) {
         super(remoteAddress, desiredCapabilities);
     }
 

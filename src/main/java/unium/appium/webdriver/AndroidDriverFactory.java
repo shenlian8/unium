@@ -17,7 +17,7 @@ public class AndroidDriverFactory extends NativeDeviceDriverFactory{
     
     @Override
     public WebDriver newInstance(DriverOptions driverOptions) {
-        return buildDriver(AndroidWebDriver::new,driverOptions);
+        return buildDriver(AndroidAppDriver::new,driverOptions);
     }
     
 }

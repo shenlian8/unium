@@ -31,9 +31,9 @@ import java.util.concurrent.TimeUnit;
  *
  * @author lian.shen
  */
-public class IOSWebDriver extends IOSDriver implements JavascriptExecutor {
+public class IOSAppDriver extends IOSDriver implements JavascriptExecutor {
 
-    public IOSWebDriver(URL remoteAddress, Capabilities desiredCapabilities) {
+    public IOSAppDriver(URL remoteAddress, Capabilities desiredCapabilities) {
         super(remoteAddress, desiredCapabilities);
     }
    

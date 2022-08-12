@@ -17,7 +17,7 @@ public class IOSDriverFactory extends NativeDeviceDriverFactory {
     
     @Override
     public WebDriver newInstance(DriverOptions driverOptions) {
-        return buildDriver(IOSWebDriver::new,driverOptions);
+        return buildDriver(IOSAppDriver::new,driverOptions);
     }
 
 }
