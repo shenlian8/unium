@@ -37,11 +37,17 @@ public abstract class Commander {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appCheckbox(locator, value)<br /><br />
+     * * Check / uncheck the checkbox <br />
+     * * The value is optional <br />
+     * - If the value is not set, toggle the checkbox<br />
+     * - if the value is set, "true" or "false", set the state of the checkbox.<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
+     * * value - optional, true or false
+     */
     public Result appCheckbox(String... args) {
-        return execCommand(getMethodName(), args);
-    }
-
-    public Result appCheckElementVisible(String... args) {
         return execCommand(getMethodName(), args);
     }
 
@@ -112,7 +118,34 @@ public abstract class Commander {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appStoreCheckboxState(locator, value)<br /><br />
+     * * Store checkbox state to variable<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
+     * * value - name of the variable
+     */
+    public Result appStoreCheckboxState(String... args) {
+        return execCommand(getMethodName(), args);
+    }
+
     public Result appStoreContext(String... args) {
+        return execCommand(getMethodName(), args);
+    }
+
+    /**
+     * appStoreElementVisible(locator, value)<br /><br />
+     * * Store if the element is visible to variable <br />
+     * * The stored value can be: <br />
+     * - found and visible: true<br />
+     * - found and visible: false<br />
+     * - found, no visible attribute<br />
+     * - not found<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
+     * * value - name of the variable
+     */
+    public Result appStoreElementVisible(String... args) {
         return execCommand(getMethodName(), args);
     }
 
