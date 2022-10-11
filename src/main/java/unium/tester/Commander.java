@@ -72,7 +72,7 @@ public abstract class Commander {
      * This command gives the user the possibility to tap the element, which occurs occasionally.<br />
      * * The value is optional to set timeout. <br />
      * - If the value is not set, wait for 2 seconds as default.<br />
-     * - if the value is set, wait for so much time.<br />
+     * - If the value is set, wait for so much time.<br />
      * This option gives the user the possibility to tap the element, which occurs occasionally.<br />
      * * @param args <br />
      * * locator - an element locator<br />
@@ -82,15 +82,17 @@ public abstract class Commander {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appClickAt(locator, value)<br /><br />
+     * * Tap on the position related to the element <br />
+     * This command gives the user the possibility to tap on a position in the element, or a position outside the element.<br /
+     * * @param args <br />
+     * * locator - an element locator<br />
+     * * value - coordinate x,y in percent. For example 50,50 means tap in the middle.
+     * - If the number smaller than 0, it means left or above outside the element
+     * - If the number grater than 100, it means right or below outside the element
+     */
     public Result appClickAt(String... args) {
-        return execCommand(getMethodName(), args);
-    }
-
-    public Result appGetAttribute(String... args) {
-        return execCommand(getMethodName(), args);
-    }
-
-    public Result appInstall(String... args) {
         return execCommand(getMethodName(), args);
     }
 
@@ -115,6 +117,17 @@ public abstract class Commander {
     }
 
     public Result appShake(String... args) {
+        return execCommand(getMethodName(), args);
+    }
+
+    /**
+     * AppStoreAttribute(locator, value)<br /><br />
+     * * Store attribute value to variable<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
+     * * value - name of the attribute. Value will be stored into the variable `attribute_<value>`
+     */
+    public Result AppStoreAttribute(String... args) {
         return execCommand(getMethodName(), args);
     }
 
