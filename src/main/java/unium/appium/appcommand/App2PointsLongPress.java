@@ -111,16 +111,16 @@ public class App2PointsLongPress extends AbstractCommand {
         Sequence finger2LongTap = new Sequence(finger2, 0);
         finger2LongTap.addAction(finger2.createPointerMove(Duration.ZERO,
                 PointerInput.Origin.viewport(),
-                (int) (parentLocation.x + parentWidth * startPointX),
-                (int) (parentLocation.y + parentHeight * startPointY)));
+                (int) (parentLocation.x + parentWidth * endPointX),
+                (int) (parentLocation.y + parentHeight * endPointY)));
         finger2LongTap.addAction(finger2.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
         finger2LongTap.addAction(finger2.createPointerMove(Duration.ofMillis(3000),
                 PointerInput.Origin.viewport(),
-                (int) (parentLocation.x + parentWidth * startPointX),
-                (int) (parentLocation.y + parentHeight * startPointY)));
+                (int) (parentLocation.x + parentWidth * endPointX),
+                (int) (parentLocation.y + parentHeight * endPointY)));
         finger2LongTap.addAction(finger2.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
-        ArrayList<Sequence> twoFingerLongTap = new ArrayList<Sequence>();
+        ArrayList<Sequence> twoFingerLongTap = new ArrayList<>();
         twoFingerLongTap.add(finger1LongTap);
         twoFingerLongTap.add(finger2LongTap);
 

@@ -96,6 +96,13 @@ public abstract class Commander {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appLongPress(locator)<br /><br />
+     * * Long press (3 seconds) on the element <br />
+     * This command gives the user the possibility to long press on the element.<br /
+     * * @param args <br />
+     * * locator - an element locator
+     */
     public Result appLongPress(String... args) {
         return execCommand(getMethodName(), args);
     }
