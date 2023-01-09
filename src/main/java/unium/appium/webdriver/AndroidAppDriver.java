@@ -93,11 +93,6 @@ public class AndroidAppDriver extends AndroidDriver implements JavascriptExecuto
           }
 
           @Override
-          public ImeHandler ime() {
-              throw new UnsupportedOperationException(NOT_SUPPORTED_YET); //To change body of generated methods, choose Tools | Templates.
-          }
-
-          @Override
           public Window window() {
               throw new UnsupportedOperationException(NOT_SUPPORTED_YET); //To change body of generated methods, choose Tools | Templates.
           }

@@ -91,11 +91,6 @@ public class IOSAppDriver extends IOSDriver implements JavascriptExecutor {
           }
 
           @Override
-          public ImeHandler ime() {
-              throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-          }
-
-          @Override
           public Window window() {
               throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
           }
