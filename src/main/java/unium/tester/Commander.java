@@ -85,7 +85,7 @@ public abstract class Commander {
     /**
      * appClickAt(locator, value)<br /><br />
      * * Tap on the position related to the element <br />
-     * This command gives the user the possibility to tap on a position in the element, or a position outside the element.<br /
+     * This command gives the user the possibility to tap on a position in the element, or a position outside the element.<br />
      * * @param args <br />
      * * locator - an element locator<br />
      * * value - coordinate x,y in percent. For example 50,50 means tap in the middle.
@@ -99,7 +99,7 @@ public abstract class Commander {
     /**
      * appLongPress(locator)<br /><br />
      * * Long press (3 seconds) on the element <br />
-     * This command gives the user the possibility to long press on the element.<br /
+     * This command gives the user the possibility to long press on the element.<br />
      * * @param args <br />
      * * locator - an element locator
      */
@@ -107,6 +107,15 @@ public abstract class Commander {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appPressKey(locator)<br /><br />
+     * * Press key <br />
+     * For Android the key name can be found in io.appium.java_client.android.nativekey.AndroidKey<br />
+     * E.g. 'HOME', 'BACK' or 'ENTER'
+     * For iOS is only 'HOME' supported and this sends the App to background.
+     * * @param args <br />
+     * * locator - Key name
+     */
     public Result appPressKey(String... args) {
         return execCommand(getMethodName(), args);
     }
