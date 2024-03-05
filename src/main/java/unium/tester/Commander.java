@@ -31,7 +31,8 @@ public abstract class Commander {
     /**
      * appAssertElementPresent(locator)<br /><br />
      * * Assert element present. Return SUCCESS when element found. Return ERROR when element cannot be found.<br />
-     * * @param args <br />*locator - an element locator<br />
+     * * @param args <br />
+     * *locator - an element locator<br />
      */
     public Result appAssertElementPresent(String... args) {
         return execCommand(getMethodName(), args);
@@ -132,10 +133,24 @@ public abstract class Commander {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appSetContext(locator, value)<br /><br />
+     * * Switch context <br />
+     * * @param args <br />
+     * * locator - Name of the context to be set<br />
+     * * value - "true" -> a part of the context name is given in the locator
+     */
     public Result appSetContext(String... args) {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appShake(locator, value)<br /><br />
+     * * Simulate shake of the device <br />
+     * This works only on iOS.<br />
+     * * @param args <br />
+     * * No parameter is needed
+     */
     public Result appShake(String... args) {
         return execCommand(getMethodName(), args);
     }
@@ -162,6 +177,16 @@ public abstract class Commander {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appStoreContext(locator, value)<br /><br />
+     * * Store context name to variable <br />
+     * This command save the context name to the variable. <br />
+     * If "all" is set as locator, all the context name will be stored with "::" as separator.<br />
+     * Else the current context name will be stored to the given variable<br />
+     * * @param args <br />
+     * * locator - "all" -> store all context names, else current context name<br />
+     * * value - name of the variable
+     */
     public Result appStoreContext(String... args) {
         return execCommand(getMethodName(), args);
     }
@@ -182,6 +207,13 @@ public abstract class Commander {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appStoreText(locator, value)<br /><br />
+     * * Store element text to variable<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
+     * * value - name of the variable
+     */
     public Result appStoreText(String... args) {
         return execCommand(getMethodName(), args);
     }
