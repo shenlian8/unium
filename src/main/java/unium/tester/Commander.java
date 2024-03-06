@@ -145,7 +145,7 @@ public abstract class Commander {
     }
 
     /**
-     * appShake(locator, value)<br /><br />
+     * appShake()<br /><br />
      * * Simulate shake of the device <br />
      * This works only on iOS.<br />
      * * @param args <br />
@@ -218,10 +218,24 @@ public abstract class Commander {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appSwipeDownPercent(locator, value)<br /><br />
+     * * Swipe down due to percent of element height.<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
+     * * value - percent of the element height to swipe
+     */
     public Result appSwipeDownPercent(String... args) {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appSwipeDownToElement(locator, value)<br /><br />
+     * * Swipe down until an element occurs.<br />
+     * * @param args <br />
+     * * locator - The locator for the element which is to swiped.<br />
+     * * value - The locator for the wished element
+     */
     public Result appSwipeDownToElement(String... args) {
         return execCommand(getMethodName(), args);
     }
