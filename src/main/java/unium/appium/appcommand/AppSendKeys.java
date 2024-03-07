@@ -10,10 +10,14 @@ import jp.vmi.selenium.selenese.Context;
 import jp.vmi.selenium.selenese.command.AbstractCommand;
 import jp.vmi.selenium.selenese.result.Result;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.Arrays;
 
 import static jp.vmi.selenium.selenese.command.ArgumentType.LOCATOR;
@@ -27,8 +31,11 @@ import static jp.vmi.selenium.selenese.result.Success.SUCCESS;
 public class AppSendKeys extends AbstractCommand {
     private static final int ARG_LOCATOR = 0;
     private static final int ARG_VALUE = 1;
+    private final long DEFAULT_TIMEOUT = 2000;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    WebElement element = null;
     
     public AppSendKeys(int index, String name, String... args) {
         super(index, name, args, LOCATOR, VALUE);
@@ -45,7 +52,16 @@ public class AppSendKeys extends AbstractCommand {
         final By byLocator = LocatorBySetter.setBy(locator);
         
         AppiumDriver driver = (AppiumDriver) context.getWrappedDriver();
-        WebElement element = driver.findElement(byLocator);
+        long timeout = DEFAULT_TIMEOUT; // set to default;
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(timeout));
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(byLocator));
+            element = driver.findElement(byLocator);
+        } catch (TimeoutException e) {
+            return new jp.vmi.selenium.selenese.result.Error("Failed to find element within " + timeout + " ms");
+        }
+
         element.click();
         element.clear();
         element.sendKeys(value);

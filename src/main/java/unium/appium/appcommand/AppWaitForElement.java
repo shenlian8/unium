@@ -9,7 +9,6 @@ import io.appium.java_client.AppiumDriver;
 import jp.vmi.selenium.selenese.Context;
 import jp.vmi.selenium.selenese.command.AbstractCommand;
 import jp.vmi.selenium.selenese.result.Result;
-import jp.vmi.selenium.selenese.result.Success;
 import jp.vmi.selenium.selenese.utils.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -30,14 +29,15 @@ import static jp.vmi.selenium.selenese.result.Success.SUCCESS;
  *
  * @author lian.shen
  */
-public class AppClick extends AbstractCommand {
+public class AppWaitForElement extends AbstractCommand {
     private static final int ARG_LOCATOR = 0;
     private static final int ARG_VALUE = 1;
     private final long DEFAULT_TIMEOUT = 2000;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     
-    public AppClick(int index, String name,  String... args) {
+    
+    public AppWaitForElement(int index, String name, String... args) {
         super(index, name, args, LOCATOR, VALUE);
     }
 
@@ -45,21 +45,15 @@ public class AppClick extends AbstractCommand {
     protected Result executeImpl(Context context, String[] curArgs) { 
 
         log.info(Arrays.toString(curArgs));
-
+        
         final String locator = curArgs[ARG_LOCATOR];
         final String value = curArgs[ARG_VALUE];
-
-        long timeout = 0;
-        try {
-            timeout = Long.parseLong(value);
-        } catch (NumberFormatException ex) {
-            // do nothing
-        } 
+        
+        long timeout = Long.parseLong(value);
 
         final By byLocator = LocatorBySetter.setBy(locator);
-        
-        AppiumDriver driver = (AppiumDriver) context.getWrappedDriver();
 
+        AppiumDriver driver = (AppiumDriver) context.getWrappedDriver();
         if (timeout <= 0) {
             timeout = DEFAULT_TIMEOUT; // set to default
         }

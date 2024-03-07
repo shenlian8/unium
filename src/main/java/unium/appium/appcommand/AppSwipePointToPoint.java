@@ -6,19 +6,15 @@
 package unium.appium.appcommand;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
 import jp.vmi.selenium.selenese.Context;
 import jp.vmi.selenium.selenese.command.AbstractCommand;
 import jp.vmi.selenium.selenese.result.Result;
 import jp.vmi.selenium.selenese.utils.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +22,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-import static io.appium.java_client.touch.offset.ElementOption.element;
-import static java.time.Duration.ofMillis;
 import static jp.vmi.selenium.selenese.command.ArgumentType.LOCATOR;
 import static jp.vmi.selenium.selenese.command.ArgumentType.VALUE;
 import static jp.vmi.selenium.selenese.result.Success.SUCCESS;
@@ -37,7 +30,7 @@ import static jp.vmi.selenium.selenese.result.Success.SUCCESS;
  *
  * @author lian.shen
  */
-public class AppSwipeDownPercent extends AbstractCommand {
+public class AppSwipePointToPoint extends AbstractCommand {
     private static final int ARG_LOCATOR = 0;
     private static final int ARG_VALUE = 1;
     private final long DEFAULT_TIMEOUT = 3000;
@@ -45,8 +38,8 @@ public class AppSwipeDownPercent extends AbstractCommand {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     WebElement parent = null;
-    
-    public AppSwipeDownPercent(int index, String name, String... args) {
+
+    public AppSwipePointToPoint(int index, String name, String... args) {
         super(index, name, args, LOCATOR, VALUE);
     }
 
@@ -62,11 +55,19 @@ public class AppSwipeDownPercent extends AbstractCommand {
         
         final By bySpinnerLocator = LocatorBySetter.setBy(locator);
 
-        double percent = 0;
+        double startPointX = 0;
+        double startPointY = 0;
+        double endPointX = 0;
+        double endPointY = 0;
+
         try {
-            percent = Double.parseDouble(value) / 100;
-        } catch(NumberFormatException e) {
-            return new jp.vmi.selenium.selenese.result.Error("Wrong number format");
+            String[] points = value.split(",");
+            startPointX = Double.parseDouble(points[0]) / 100;
+            startPointY = Double.parseDouble(points[1]) / 100;
+            endPointX = Double.parseDouble(points[2]) / 100;
+            endPointY = Double.parseDouble(points[3]) / 100;
+        } catch(Exception e) {
+            return new jp.vmi.selenium.selenese.result.Error("Wrong number format. Use i.appSwipePointToPoint(\"parentElement\", \"30,50,70,50\");");
         }
 
         AppiumDriver driver = (AppiumDriver) context.getWrappedDriver();
@@ -74,15 +75,20 @@ public class AppSwipeDownPercent extends AbstractCommand {
         if (timeout <= 0) {
             timeout = DEFAULT_TIMEOUT; // set to default
         }
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(timeout));
-        try {
-            wait.until(ExpectedConditions.presenceOfElementLocated(bySpinnerLocator));
-            parent = driver.findElement(bySpinnerLocator);
-        } catch (TimeoutException e) {
+        long startTime = System.currentTimeMillis();
+       
+        Wait.StopCondition parentCondition = () -> {
+            try {
+                parent = (WebElement) driver.findElement(bySpinnerLocator);
+            } catch (Exception e) {
+                // do nothing
+            }
+            return parent != null;
+        };
+        if (!Wait.defaultInterval.wait(startTime, timeout, parentCondition)) {
             return new jp.vmi.selenium.selenese.result.Error("Failed to find parent within " + timeout + " ms");
         }
-
+        
         if (null == parent) {
             return new jp.vmi.selenium.selenese.result.Error(locator + " not found!");
         }
@@ -96,13 +102,13 @@ public class AppSwipeDownPercent extends AbstractCommand {
 
         SwipeSequence.addAction(finger1.createPointerMove(Duration.ZERO,
                 PointerInput.Origin.viewport(),
-                (int) (parentLocation.x + parentWidth * 0.5),
-                (int) (parentLocation.y + parentHeight * 0.5)));
+                (int) (parentLocation.x + parentWidth * startPointX),
+                (int) (parentLocation.y + parentHeight * startPointY)));
         SwipeSequence.addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
         SwipeSequence.addAction(finger1.createPointerMove(Duration.ofMillis(300),
                 PointerInput.Origin.viewport(),
-                (int) (parentLocation.x + parentWidth * 0.5),
-                (int) (parentLocation.y + parentHeight * (0.5 - percent))));
+                (int) (parentLocation.x + parentWidth * endPointX),
+                (int) (parentLocation.y + parentHeight * endPointY)));
         SwipeSequence.addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         ArrayList<Sequence> swipeCommand = new ArrayList<>();

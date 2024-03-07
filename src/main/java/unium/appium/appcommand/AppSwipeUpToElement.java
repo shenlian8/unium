@@ -25,9 +25,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-import static io.appium.java_client.touch.offset.ElementOption.element;
-import static java.time.Duration.ofMillis;
 import static jp.vmi.selenium.selenese.command.ArgumentType.LOCATOR;
 import static jp.vmi.selenium.selenese.command.ArgumentType.VALUE;
 import static jp.vmi.selenium.selenese.result.Success.SUCCESS;
@@ -36,7 +33,7 @@ import static jp.vmi.selenium.selenese.result.Success.SUCCESS;
  *
  * @author lian.shen
  */
-public class AppSwipeDownToElement extends AbstractCommand {
+public class AppSwipeUpToElement extends AbstractCommand {
     private static final int ARG_LOCATOR = 0;
     private static final int ARG_VALUE = 1;
     private final long DEFAULT_TIMEOUT = 60000;
@@ -45,7 +42,7 @@ public class AppSwipeDownToElement extends AbstractCommand {
 
     WebElement parent = null;
 
-    public AppSwipeDownToElement(int index, String name, String... args) {
+    public AppSwipeUpToElement(int index, String name, String... args) {
         super(index, name, args, LOCATOR, VALUE);
     }
 
@@ -128,12 +125,12 @@ public class AppSwipeDownToElement extends AbstractCommand {
                 SwipeSequence.addAction(finger1.createPointerMove(Duration.ZERO,
                         PointerInput.Origin.viewport(),
                         (int) (parentLocation.x + parentWidth * 0.5),
-                        (int) (parentLocation.y + parentHeight * 0.5)));
+                        (int) (parentLocation.y + parentHeight * 0.2)));
                 SwipeSequence.addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
                 SwipeSequence.addAction(finger1.createPointerMove(Duration.ofMillis(300),
                         PointerInput.Origin.viewport(),
                         (int) (parentLocation.x + parentWidth * 0.5),
-                        (int) (parentLocation.y + parentHeight * 0.1)));
+                        (int) (parentLocation.y + parentHeight * 0.5)));
                 SwipeSequence.addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
                 ArrayList<Sequence> swipeCommand = new ArrayList<>();
@@ -157,7 +154,7 @@ public class AppSwipeDownToElement extends AbstractCommand {
                         SwipeSequence.addAction(finger1.createPointerMove(Duration.ofMillis(300),
                                 PointerInput.Origin.viewport(),
                                 (int) (parentLocation.x + parentWidth * 0.5),
-                                (int) (parentLocation.y + parentHeight * 0.2)));
+                                (int) (parentLocation.y + parentHeight * 0.1)));
                         SwipeSequence.addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
                         ArrayList<Sequence> swipeCommand = new ArrayList<>();

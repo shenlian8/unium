@@ -240,22 +240,59 @@ public abstract class Commander {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appSwipePointToPoint(locator, value)<br /><br />
+     * * Swipe point to point. The points are defined as percent.<br />
+     * * @param args <br />
+     * * locator - The locator for the element which is to swiped.<br />
+     * * value - Format of "startX,startY,endX,endY", like "30,50,70,50".<br />
+     * can be minus or more than 100
+     */
     public Result appSwipePointToPoint(String... args) {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appSwipeUpToElement(locator, value)<br /><br />
+     * * Swipe up until an element occurs.<br />
+     * * @param args <br />
+     * * locator - The locator for the element which is to swiped.<br />
+     * * value - The locator for the wished element
+     */
     public Result appSwipeUpToElement(String... args) {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appTakeScreenshot(locator)<br /><br />
+     * * Take a screenshot of the current screen. <br />
+     * * @param args <br />
+     * * locator - File path<br />
+     */
     public Result appTakeScreenshot(String... args) {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appType(locator, value)<br /><br />
+     * * Write text to on the element <br />
+     * Fill the element. The difference to appSendKeys is, appType do not click and clear the element.<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
+     * * value - text to write into the element
+     */
     public Result appType(String... args) {
         return execCommand(getMethodName(), args);
     }
 
+    /**
+     * appWaitForElement(locator, value)<br /><br />
+     * * Wait for an element occurs.<br />
+     * If the element does not occur within the defined milliseconds -> error<br />
+     * * @param args <br />
+     * * locator - an element locator<br />
+     * * value - Time to wait in milliseconds
+     */
     public Result appWaitForElement(String... args) {
         return execCommand(getMethodName(), args);
     }
