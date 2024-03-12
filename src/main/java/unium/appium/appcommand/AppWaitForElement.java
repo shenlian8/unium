@@ -59,7 +59,7 @@ public class AppWaitForElement extends AbstractCommand {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(timeout));
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(byLocator));
-            driver.findElement(byLocator).click();
+            driver.findElement(byLocator);
         } catch (TimeoutException e) {
             return new jp.vmi.selenium.selenese.result.Error("Failed to find element within " + timeout + " ms");
         }
