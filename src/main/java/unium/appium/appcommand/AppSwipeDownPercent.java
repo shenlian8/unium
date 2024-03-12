@@ -6,11 +6,9 @@
 package unium.appium.appcommand;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
 import jp.vmi.selenium.selenese.Context;
 import jp.vmi.selenium.selenese.command.AbstractCommand;
 import jp.vmi.selenium.selenese.result.Result;
-import jp.vmi.selenium.selenese.utils.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TimeoutException;
@@ -26,9 +24,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-import static io.appium.java_client.touch.offset.ElementOption.element;
-import static java.time.Duration.ofMillis;
 import static jp.vmi.selenium.selenese.command.ArgumentType.LOCATOR;
 import static jp.vmi.selenium.selenese.command.ArgumentType.VALUE;
 import static jp.vmi.selenium.selenese.result.Success.SUCCESS;

@@ -25,9 +25,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-import static io.appium.java_client.touch.offset.ElementOption.element;
-import static java.time.Duration.ofMillis;
 import static jp.vmi.selenium.selenese.command.ArgumentType.LOCATOR;
 import static jp.vmi.selenium.selenese.command.ArgumentType.VALUE;
 import static jp.vmi.selenium.selenese.result.Success.SUCCESS;

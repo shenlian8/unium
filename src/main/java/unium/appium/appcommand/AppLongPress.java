@@ -102,5 +102,4 @@ public class AppLongPress extends AbstractCommand {
 
         return SUCCESS;
     }
-    
 }
