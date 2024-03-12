@@ -58,10 +58,8 @@ public class AppClickIfExists extends AbstractCommand {
         
         AppiumDriver driver = (AppiumDriver) context.getWrappedDriver();
 
-        boolean timeoutIsSet = true;
         if (timeout <= 0) {
             timeout = DEFAULT_TIMEOUT; // set to default
-            timeoutIsSet = false;
         }
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(timeout));
