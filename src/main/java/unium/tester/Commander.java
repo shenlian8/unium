@@ -160,7 +160,7 @@ public abstract class Commander {
      * * Store attribute value to variable<br />
      * * @param args <br />
      * * locator - an element locator<br />
-     * * value - name of the attribute. Value will be stored into the variable `attribute_<value>`
+     * * value - name of the attribute. Value will be stored into the variable `attribute_&lt;value&gt;`
      */
     public Result AppStoreAttribute(String... args) {
         return execCommand(getMethodName(), args);
