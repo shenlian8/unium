@@ -1,6 +1,6 @@
 # configuration remote mobile safari.
 
-remote-url: http://127.0.01:4723/wd/hub
+remote-url: http://127.0.0.1:4723/wd/hub
 log-filter:
   -pageinfo
 screenshot-all: build/reports/screenshots

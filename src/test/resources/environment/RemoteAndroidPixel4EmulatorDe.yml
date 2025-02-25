@@ -1,0 +1,21 @@
+# configuration remote mobile safari.
+
+driver: qa.scalable.capital.appium.webdriver.AndroidDriverFactory
+command-factory: qa.scalable.capital.appium.appcommand.CommandFactory
+remote-url: http://192.168.178.101:4723/wd/hub
+log-filter:
+  -pageinfo
+screenshot-all: build/reports/screenshots
+html-result: build/reports
+define:
+  udid=emulator-5554
+  platformName=Android
+  automationName=UiAutomator2
+  app=/Users/qa/testautomation/apps/app-staging.apk
+  appWaitActivity=capital.scalable.droid.ui.SignInActivity
+  locale=DE
+  language=de
+  newCommandTimeout=3600
+  noReset=false
+  fullReset=true
+baseurl: https://dev-de.scalable.capital/
