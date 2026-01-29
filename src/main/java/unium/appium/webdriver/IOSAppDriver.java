@@ -21,6 +21,7 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.logging.Logs;
 
+import java.time.Duration;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,21 @@ public class IOSAppDriver extends IOSDriver implements JavascriptExecutor {
 
                 @Override
                 public Timeouts pageLoadTimeout(long l, TimeUnit tu) {
+                    return this;
+                }
+
+                @Override
+                public Timeouts implicitlyWait(Duration duration) {
+                    return this;
+                }
+
+                @Override
+                public Timeouts scriptTimeout(Duration duration) {
+                    return this;
+                }
+
+                @Override
+                public Timeouts pageLoadTimeout(Duration duration) {
                     return this;
                 }
             };
