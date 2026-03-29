@@ -1,8 +1,8 @@
--- Roblox Advanced Clicker Game Script (Single Script Solution)
+-- Roblox All-In-One Clicker Simulator Script
 -- Place this in ServerScriptService
 
 local DataStoreService = game:GetService("DataStoreService")
-local playerDataStore = DataStoreService:GetDataStore("PlayerData_v1")
+local playerDataStore = DataStoreService:GetDataStore("PlayerData_v2") -- Incremented version for safety
 local RunService = game:GetService("RunService")
 
 -- Configuration
@@ -14,6 +14,8 @@ local PET_LIST = {
 }
 
 local WORLD_UNLOCK_COST = 5000
+local EXCHANGE_CLICKS_COST = 100
+local EXCHANGE_COINS_REWARD = 50
 
 -- Helper: Calculate Multiplier
 local function calculateMultiplier(player)
@@ -21,7 +23,6 @@ local function calculateMultiplier(player)
     local petsFolder = player:FindFirstChild("Pets")
     if petsFolder then
         for _, pet in ipairs(petsFolder:GetChildren()) do
-            -- We assume all pets in the folder are "equipped" for simplicity
             multiplier = multiplier + (pet:GetAttribute("Multiplier") or 0)
         end
     end
@@ -88,7 +89,8 @@ game.Players.PlayerAdded:Connect(function(player)
         tool.Activated:Connect(function()
             local mult = calculateMultiplier(player)
             clicks.Value = clicks.Value + (1 * mult)
-            coins.Value = coins.Value + (1 * mult)
+            -- Passive coin gain reduced slightly to balance multipliers
+            coins.Value = coins.Value + (0.5 * mult)
         end)
 
         tool.Parent = targetBackpack
@@ -101,8 +103,10 @@ end)
 -- Save Data on Exit
 game.Players.PlayerRemoving:Connect(function(player)
     local petNames = {}
-    for _, pet in ipairs(player.Pets:GetChildren()) do
-        table.insert(petNames, pet.Name)
+    if player:FindFirstChild("Pets") then
+        for _, pet in ipairs(player.Pets:GetChildren()) do
+            table.insert(petNames, pet.Name)
+        end
     end
 
     local data = {
@@ -117,7 +121,53 @@ game.Players.PlayerRemoving:Connect(function(player)
     end)
 end)
 
--- 5. PET GACHA STATION
+-- 5. EXCHANGE STATION (From Old Code)
+local exchangePart = Instance.new("Part")
+exchangePart.Name = "ExchangeStation"
+exchangePart.Size = Vector3.new(10, 1, 10)
+exchangePart.Position = Vector3.new(-15, 0.5, 0)
+exchangePart.Anchored = true
+exchangePart.BrickColor = BrickColor.new("Bright green")
+exchangePart.Parent = game.Workspace
+
+local exGui = Instance.new("SurfaceGui")
+exGui.Face = Enum.NormalId.Top
+exGui.Parent = exchangePart
+
+local exLabel = Instance.new("TextLabel")
+exLabel.Size = UDim2.new(1, 0, 1, 0)
+exLabel.BackgroundTransparency = 1
+exLabel.Text = "TRADE "..EXCHANGE_CLICKS_COST.." CLICKS FOR "..EXCHANGE_COINS_REWARD.." COINS!"
+exLabel.TextScaled = true
+exLabel.Parent = exGui
+
+local exDb = {}
+exchangePart.Touched:Connect(function(hit)
+    local player = game.Players:GetPlayerFromCharacter(hit.Parent)
+    if player and not exDb[player.UserId] then
+        exDb[player.UserId] = true
+        local clicks = player.leaderstats.Clicks
+        local coins = player.leaderstats.Coins
+
+        if clicks.Value >= EXCHANGE_CLICKS_COST then
+            clicks.Value = clicks.Value - EXCHANGE_CLICKS_COST
+            -- Exchange reward is also affected by multiplier
+            local mult = calculateMultiplier(player)
+            coins.Value = coins.Value + (EXCHANGE_COINS_REWARD * mult)
+
+            exchangePart.BrickColor = BrickColor.new("Bright yellow")
+            task.wait(0.5)
+            exchangePart.BrickColor = BrickColor.new("Bright green")
+        else
+            exchangePart.BrickColor = BrickColor.new("Bright red")
+            task.wait(0.5)
+            exchangePart.BrickColor = BrickColor.new("Bright green")
+        end
+        exDb[player.UserId] = nil
+    end
+end)
+
+-- 6. PET GACHA STATION
 local gachaPart = Instance.new("Part")
 gachaPart.Name = "PetGacha"
 gachaPart.Size = Vector3.new(8, 8, 8)
@@ -145,7 +195,6 @@ gachaPart.Touched:Connect(function(hit)
         if coins.Value >= 500 then
             coins.Value = coins.Value - 500
 
-            -- Weighted Random
             local totalWeight = 0
             for _, p in ipairs(PET_LIST) do totalWeight = totalWeight + p.Chance end
             local rand = math.random(1, totalWeight)
@@ -164,7 +213,6 @@ gachaPart.Touched:Connect(function(hit)
             p:SetAttribute("Multiplier", selectedPet.Multiplier)
             p.Parent = player.Pets
 
-            print(player.Name .. " got a " .. selectedPet.Name .. "!")
             gachaPart.BrickColor = selectedPet.Color
             task.wait(1)
             gachaPart.BrickColor = BrickColor.new("Royal purple")
@@ -174,7 +222,7 @@ gachaPart.Touched:Connect(function(hit)
     end
 end)
 
--- 6. WORLD UNLOCK SYSTEM
+-- 7. WORLD UNLOCK SYSTEM
 local worldGate = Instance.new("Part")
 worldGate.Name = "WorldGate"
 worldGate.Size = Vector3.new(20, 15, 2)
@@ -199,7 +247,6 @@ worldGate.Touched:Connect(function(hit)
     local player = game.Players:GetPlayerFromCharacter(hit.Parent)
     if player then
         if player.UnlockedWorld2.Value then
-            -- Teleport to world 2
             hit.Parent:SetPrimaryPartCFrame(CFrame.new(0, 5, -100))
         elseif player.leaderstats.Coins.Value >= WORLD_UNLOCK_COST then
             player.leaderstats.Coins.Value = player.leaderstats.Coins.Value - WORLD_UNLOCK_COST
@@ -207,7 +254,6 @@ worldGate.Touched:Connect(function(hit)
             worldGate.CanCollide = false
             worldGate.Transparency = 0.8
             gateLabel.Text = "WORLD UNLOCKED!\nWalk through to enter"
-            print(player.Name .. " unlocked World 2!")
         end
     end
 end)
@@ -220,4 +266,4 @@ w2Floor.Anchored = true
 w2Floor.BrickColor = BrickColor.new("Sand blue")
 w2Floor.Parent = game.Workspace
 
-print("Advanced Clicker Game Loaded!")
+print("Combined Clicker Simulator Loaded!")
